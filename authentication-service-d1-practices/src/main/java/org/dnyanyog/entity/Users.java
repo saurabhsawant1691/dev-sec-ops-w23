@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Table
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Users { // Table
-  @GeneratedValue // Auto generated (DB => sequence), primary key
+  @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto generated (DB => sequence), primary key
   @Id
   @Column(name = "userCode", nullable = false, updatable = false, insertable = false)
   private long userCode;

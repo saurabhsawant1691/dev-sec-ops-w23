@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import org.dnyanyog.dto.AddUserRequest;
 import org.dnyanyog.dto.AddUserResponse;
+import org.dnyanyog.encryption.EncryptionService;
 import org.dnyanyog.entity.Users;
 import org.dnyanyog.repo.UsersRepository;
 import org.slf4j.Logger;
@@ -23,14 +24,17 @@ public class UserManagementService {
   @Autowired AddUserResponse userResponse;
   @Autowired
   private List<Long> userIds;
+  
+  @Autowired
+  EncryptionService encryptionService;
 
-  public Optional<AddUserResponse> addUpdateUser(AddUserRequest request) {
+  public Optional<AddUserResponse> addUpdateUser(AddUserRequest request) throws Exception {
 
     Users usersTable = new Users(); // Create table object in which we set data from request
 
     usersTable.setAge(request.getAge());
     usersTable.setEmail(request.getEmail());
-    usersTable.setPassword(request.getPassword());
+    usersTable.setPassword(encryptionService.encrypt(request.getPassword()));
     usersTable.setUsername(request.getUsername());
 
     usersTable =

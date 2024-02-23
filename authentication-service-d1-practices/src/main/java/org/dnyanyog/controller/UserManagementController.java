@@ -17,7 +17,7 @@ public class UserManagementController {
       path = "/api/v1/auth/user",
       consumes = {"application/json", "application/xml"},
       produces = {"application/json", "application/xml"})
-  public AddUserResponse addUpdateUser(@RequestBody AddUserRequest userRequest) {
+  public AddUserResponse addUpdateUser(@RequestBody AddUserRequest userRequest) throws Exception {
 
     return userService.addUpdateUser(userRequest).orElse(new AddUserResponse());
   }
