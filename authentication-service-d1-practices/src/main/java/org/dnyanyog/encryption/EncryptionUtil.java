@@ -14,7 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EncryptionService {
+public class EncryptionUtil {
 
 	private static final String SECRET_KEY = "5F270B070EF2F0BAB8123A810368B0E4";
 	

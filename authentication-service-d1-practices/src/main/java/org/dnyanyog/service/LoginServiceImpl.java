@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.dnyanyog.dto.LoginRequest;
 import org.dnyanyog.dto.LoginResponse;
+import org.dnyanyog.encryption.EncryptionUtil;
 import org.dnyanyog.entity.Users;
 import org.dnyanyog.repo.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +17,19 @@ public class LoginServiceImpl implements LoginService{
 
 	@Autowired
 	UsersRepository userRepo;
+	@Autowired
+	EncryptionUtil encryptionUtil;
 
-	public LoginResponse validateUser(LoginRequest loginRequest) {
+	public LoginResponse validateUser(LoginRequest loginRequest) throws Exception {
 
 		LoginResponse response = new LoginResponse();
 
 		List<Users> liUser = userRepo.findByUsernameAndPassword(
 				loginRequest.getUsername(), 
-				loginRequest.getPassword()
+				encryptionUtil.encrypt(loginRequest.getPassword())
 				);
 		System.out.println("LI_USER:- "+ liUser);
-		if(liUser.size()==1)
+		if(liUser.size()>=1)
 		{
 			response.setStatus("Success");
 			response.setMessage("Login successful");
